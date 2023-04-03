@@ -9,6 +9,6 @@ class TurnNotifier extends StateNotifier<Direction> {
   Direction get direction => state;
 }
 
-final turnProvider = StateNotifierProvider<TurnNotifier, Direction>(
+final turnProvider = StateNotifierProvider.autoDispose<TurnNotifier, Direction>(
   (ref) => TurnNotifier(),
 );

@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_snake/models/snake.dart';
@@ -14,9 +16,16 @@ class SnakeBodyNotifier extends StateNotifier<SnakeBody> {
   final LevelNotifier levelNotifier;
 
   SnakeBodyNotifier(this.levelNotifier) : super(const SnakeBody(body: [])) {
+    init();
+  }
+
+  void init() {
     final row = levelNotifier.state.rows;
     final column = levelNotifier.state.columns;
-    final first = (row * column + column) ~/ 2;
+    final area = levelNotifier.state.area;
+    final first = (area + column) ~/ 2 +
+        column * row ~/ 3 +
+        Random().nextInt(column ~/ 3);
     final list = [
       first,
       first - column,
@@ -24,15 +33,13 @@ class SnakeBodyNotifier extends StateNotifier<SnakeBody> {
     state = state.copyWith(body: list);
   }
 
-  // set setBody(List<int> value) => state = state.copyWith(body: value);
-
   List<int> get body => state.body;
 
   void setBody(List<int> list) => state = state.copyWith(body: list);
 }
 
 final snakeBodyProvider =
-    StateNotifierProvider<SnakeBodyNotifier, SnakeBody>((ref) {
+StateNotifierProvider.autoDispose<SnakeBodyNotifier, SnakeBody>((ref) {
   return SnakeBodyNotifier(ref.watch(levelProvider.notifier));
 });
 
@@ -52,9 +59,9 @@ class SnakeNotifier extends StateNotifier<Snake> {
     required this.turnNotifier,
     required this.snakeBodyNotifier,
   }) : super(const Snake(
-          direction: Direction.top,
-          speed: Speed.slow,
-        ));
+    direction: Direction.top,
+    speed: Speed.slow,
+  ));
 
   void keyTurn(LogicalKeyboardKey key) {
     final direction = KeyboardMapper().fromKey(key);
@@ -106,7 +113,7 @@ class SnakeNotifier extends StateNotifier<Snake> {
         break;
       case Direction.left:
         next =
-            ((head - 1) % column == column - 1) ? head + column - 1 : head - 1;
+        ((head - 1) % column == column - 1) ? head + column - 1 : head - 1;
         break;
       case Direction.bottom:
         next = (head + column >= count) ? head + column - count : head + column;
@@ -128,8 +135,8 @@ class SnakeNotifier extends StateNotifier<Snake> {
     }
 
     final walls = levelNotifier.walls;
-    if (body.toSet().length != body.length ||
-        walls.toSet().intersection(body.toSet()).isNotEmpty) {
+    if (list.toSet().length != list.length ||
+        walls.toSet().intersection(list.toSet()).isNotEmpty) {
       return true;
     }
 
@@ -139,7 +146,8 @@ class SnakeNotifier extends StateNotifier<Snake> {
   }
 }
 
-final snakeProvider = StateNotifierProvider<SnakeNotifier, Snake>((ref) {
+final snakeProvider =
+    StateNotifierProvider.autoDispose<SnakeNotifier, Snake>((ref) {
   return SnakeNotifier(
     levelNotifier: ref.watch(levelProvider.notifier),
     foodNotifier: ref.watch(foodProvider.notifier),

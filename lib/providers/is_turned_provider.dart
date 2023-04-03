@@ -8,6 +8,7 @@ class IsTurnedNotifier extends StateNotifier<bool> {
   bool get isTurnedAlready => state;
 }
 
-final isTurnedProvider = StateNotifierProvider<IsTurnedNotifier, bool>((ref) {
+final isTurnedProvider =
+    StateNotifierProvider.autoDispose<IsTurnedNotifier, bool>((ref) {
   return IsTurnedNotifier();
 });

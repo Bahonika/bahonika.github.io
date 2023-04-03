@@ -1,10 +1,6 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_snake/main.dart';
-import 'package:flutter_snake/ui/pause_screen.dart';
-import 'package:flutter_snake/utils/keyboard.dart';
 
 import '../models/snake.dart';
 import '../providers/ground_provider.dart';
@@ -37,7 +33,6 @@ class _LevelWidgetState extends ConsumerState<LevelWidget> {
   @override
   void initState() {
     super.initState();
-    ref.read(soundProviderBack.notifier).playMusic();
     ref.read(timerProvider);
   }
 
@@ -47,38 +42,43 @@ class _LevelWidgetState extends ConsumerState<LevelWidget> {
     final grid = ref.watch(gridProvider);
 
     return Scaffold(
-      body: Stack(
-        children: [
-          Align(
-            alignment: Alignment.topCenter,
-            child: Container(
-              constraints: const BoxConstraints(
-                minWidth: 400,
-                minHeight: 700,
-                maxHeight: 700,
-                maxWidth: 400,
+      body: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Stack(
+            children: [
+              Align(
+                alignment: Alignment.topCenter,
+                child: Container(
+                  constraints: const BoxConstraints(
+                    minWidth: 400,
+                    minHeight: 700,
+                    maxHeight: 700,
+                    maxWidth: 400,
+                  ),
+                  child: GridView.count(
+                    crossAxisCount: level.columns,
+                    children: grid,
+                  ),
+                ),
               ),
-              child: GridView.count(
-                crossAxisCount: level.columns,
-                children: grid,
+              const Align(
+                alignment: Alignment.bottomCenter,
+                child: ControllerWidget(),
               ),
-            ),
-          ),
-          const Align(
-            alignment: Alignment.bottomCenter,
-            child: ControllerWidget(),
-          ),
-          Align(
-            alignment: Alignment.topRight,
-            child: IconButton(
-              onPressed: openHelp,
-              icon: const Icon(
-                Icons.pause,
-                color: Colors.white,
+              Align(
+                alignment: Alignment.topRight,
+                child: IconButton(
+                  onPressed: () => openHelp(),
+                  icon: const Icon(
+                    Icons.pause,
+                    color: Colors.white,
+                  ),
+                ),
               ),
-            ),
+            ],
           ),
-        ],
+        ),
       ),
     );
   }

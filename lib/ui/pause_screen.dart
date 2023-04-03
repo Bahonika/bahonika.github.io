@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_snake/providers/music_provider.dart';
 import 'package:flutter_snake/providers/sound_provider.dart';
-import 'package:flutter_snake/utils/keyboard.dart';
 
 import '../providers/is_active.dart';
 
@@ -22,12 +21,14 @@ class _PauseScreenState extends ConsumerState<PauseScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Пауза'),
+        centerTitle: true,
         leading: IconButton(
           icon: const Icon(
             Icons.arrow_back_ios,
           ),
           onPressed: () {
-            ref.read(isActiveProvider.notifier).isActive = true;
+            Navigator.pop(context);
+            ref.watch(isActiveProvider.notifier).isActive = true;
           },
         ),
       ),

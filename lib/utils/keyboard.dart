@@ -49,7 +49,7 @@ class _MyKeyboardListenerState extends ConsumerState<MyKeyboardListener> {
         if (event.isKeyPressed(LogicalKeyboardKey.escape)) {
           final context = ref.watch(navigationKeyProvider).currentContext;
           if (context != null) {
-            if (ref.read(isActiveProvider)) {
+            if (ref.watch(isActiveProvider)) {
               Navigator.pushNamed(context, '/pause');
               ref.watch(isActiveProvider.notifier).toggle();
             } else if (Navigator.canPop(context)) {
@@ -58,7 +58,7 @@ class _MyKeyboardListenerState extends ConsumerState<MyKeyboardListener> {
             }
           }
         }
-        if (ref.read(isActiveProvider)) {
+        if (ref.watch(isActiveProvider)) {
           ref.watch(snakeProvider.notifier).keyTurn(event.logicalKey);
         }
       },

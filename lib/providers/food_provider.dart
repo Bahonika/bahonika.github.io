@@ -31,7 +31,8 @@ class FoodNotifier extends StateNotifier<int> {
   }
 }
 
-final foodProvider = StateNotifierProvider<FoodNotifier, int>((ref) {
+final foodProvider =
+    StateNotifierProvider.autoDispose<FoodNotifier, int>((ref) {
   return FoodNotifier(
     ref.watch(levelProvider.notifier),
     ref.watch(snakeBodyProvider.notifier),

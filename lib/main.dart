@@ -35,7 +35,6 @@ class _MyAppState extends ConsumerState<MyApp> {
           '/pause': (context) => const PauseScreen(),
           '/over': (context) => const EndScreen(),
         },
-
         navigatorKey: ref.watch(navigationKeyProvider),
         initialRoute: 'mainMenu',
         debugShowCheckedModeBanner: false,
@@ -44,27 +43,6 @@ class _MyAppState extends ConsumerState<MyApp> {
           scaffoldBackgroundColor: Colors.black,
           iconTheme: const IconThemeData(color: Colors.white),
         ),
-        // home: MyKeyboardListener(
-        //   child: Stack(
-        //     children: [
-        //       const MainMenuScreen(),
-        //       Visibility(
-        //         visible:
-        //             ref.watch(isActiveProvider) || !ref.watch(gameOverProvider),
-        //         child: const LevelWidget(),
-        //       ),
-        //       Visibility(
-        //         visible: !ref.watch(isActiveProvider) &&
-        //             !ref.watch(gameOverProvider.notifier).isOver,
-        //         child: const PauseScreen(),
-        //       ),
-        //       Visibility(
-        //         visible: ref.watch(gameOverProvider),
-        //         child: const EndScreen(),
-        //       ),
-        //     ],
-        //   ),
-        // ),
       ),
     );
   }

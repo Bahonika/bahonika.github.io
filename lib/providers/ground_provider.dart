@@ -36,6 +36,7 @@ class GroundNotifier extends StateNotifier<Ground> {
       if (context != null) {
         Navigator.pushNamed(context, '/over');
       }
+      return;
     }
 
     final snakeBody = snakeBodyNotifier.body;
@@ -62,7 +63,8 @@ class GroundNotifier extends StateNotifier<Ground> {
   set grid(List<Block> value) => state.copyWith(grid: value);
 }
 
-final groundProvider = StateNotifierProvider<GroundNotifier, Ground>((ref) {
+final groundProvider =
+    StateNotifierProvider.autoDispose<GroundNotifier, Ground>((ref) {
   final level = ref.watch(levelProvider.notifier);
   final snake = ref.watch(snakeProvider.notifier);
   final food = ref.watch(foodProvider.notifier);
@@ -97,7 +99,7 @@ final groundProvider = StateNotifierProvider<GroundNotifier, Ground>((ref) {
   );
 });
 
-final gridProvider = StateProvider<List<Widget>>((ref) {
+final gridProvider = StateProvider.autoDispose<List<Widget>>((ref) {
   Color colorFromType(BlockType type) {
     switch (type) {
       case BlockType.blank:

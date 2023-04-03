@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_snake/models/level.dart';
 
@@ -6,6 +8,8 @@ class LevelNotifier extends StateNotifier<Level> {
       : super(
           levels[1],
         );
+
+  void level(Level value) => state = value;
 
   set walls(List<int> value) => state.copyWith(walls: value);
 
@@ -17,7 +21,7 @@ class LevelNotifier extends StateNotifier<Level> {
 }
 
 final levelProvider =
-    StateNotifierProvider<LevelNotifier, Level>((ref) => LevelNotifier());
+StateNotifierProvider<LevelNotifier, Level>((ref) => LevelNotifier());
 
 List<Level> levels = [
   const Level(columns: 20, rows: 20, walls: []),
@@ -36,7 +40,20 @@ List<Level> levels = [
         List.generate(20, (index) => 20 * 20 - index - 1),
       ),
   ),
-  const Level(columns: 20, rows: 20, walls: []),
-  const Level(columns: 20, rows: 20, walls: []),
-  const Level(columns: 20, rows: 20, walls: []),
+  const Level(columns: 10, rows: 10, walls: []),
+  Level(
+      columns: 15,
+      rows: 15,
+      walls: List.generate(15, (index) => 15 * index + 7)
+        ..addAll(
+          List.generate(15, (index) => index + 7 * 15),
+        )),
+  Level(
+    columns: 20,
+    rows: 20,
+    walls: List.generate(
+      20 * 20,
+      (index) => (Random().nextInt(10) == 9) ? index : -1,
+    ),
+  ),
 ];
