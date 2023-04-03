@@ -33,7 +33,6 @@ class TimerNotifier extends StateNotifier<Timer> {
                   soundNotifier.playSoundDied();
                 }
                 isTurnedNotifier.isTurnedAlready = false;
-
               }
             },
           ),

@@ -17,7 +17,10 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$Level {
   int get rows => throw _privateConstructorUsedError;
+
   int get columns => throw _privateConstructorUsedError;
+
+  List<int> get walls => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $LevelCopyWith<Level> get copyWith => throw _privateConstructorUsedError;
@@ -27,8 +30,9 @@ mixin _$Level {
 abstract class $LevelCopyWith<$Res> {
   factory $LevelCopyWith(Level value, $Res Function(Level) then) =
       _$LevelCopyWithImpl<$Res, Level>;
+
   @useResult
-  $Res call({int rows, int columns});
+  $Res call({int rows, int columns, List<int> walls});
 }
 
 /// @nodoc
@@ -46,6 +50,7 @@ class _$LevelCopyWithImpl<$Res, $Val extends Level>
   $Res call({
     Object? rows = null,
     Object? columns = null,
+    Object? walls = null,
   }) {
     return _then(_value.copyWith(
       rows: null == rows
@@ -56,6 +61,10 @@ class _$LevelCopyWithImpl<$Res, $Val extends Level>
           ? _value.columns
           : columns // ignore: cast_nullable_to_non_nullable
               as int,
+      walls: null == walls
+          ? _value.walls
+          : walls // ignore: cast_nullable_to_non_nullable
+              as List<int>,
     ) as $Val);
   }
 }
@@ -64,9 +73,10 @@ class _$LevelCopyWithImpl<$Res, $Val extends Level>
 abstract class _$$_LevelCopyWith<$Res> implements $LevelCopyWith<$Res> {
   factory _$$_LevelCopyWith(_$_Level value, $Res Function(_$_Level) then) =
       __$$_LevelCopyWithImpl<$Res>;
+
   @override
   @useResult
-  $Res call({int rows, int columns});
+  $Res call({int rows, int columns, List<int> walls});
 }
 
 /// @nodoc
@@ -80,6 +90,7 @@ class __$$_LevelCopyWithImpl<$Res> extends _$LevelCopyWithImpl<$Res, _$_Level>
   $Res call({
     Object? rows = null,
     Object? columns = null,
+    Object? walls = null,
   }) {
     return _then(_$_Level(
       rows: null == rows
@@ -90,6 +101,10 @@ class __$$_LevelCopyWithImpl<$Res> extends _$LevelCopyWithImpl<$Res, _$_Level>
           ? _value.columns
           : columns // ignore: cast_nullable_to_non_nullable
               as int,
+      walls: null == walls
+          ? _value._walls
+          : walls // ignore: cast_nullable_to_non_nullable
+              as List<int>,
     ));
   }
 }
@@ -97,16 +112,29 @@ class __$$_LevelCopyWithImpl<$Res> extends _$LevelCopyWithImpl<$Res, _$_Level>
 /// @nodoc
 
 class _$_Level extends _Level {
-  const _$_Level({required this.rows, required this.columns}) : super._();
+  const _$_Level(
+      {required this.rows,
+      required this.columns,
+      required final List<int> walls})
+      : _walls = walls,
+        super._();
 
   @override
   final int rows;
   @override
   final int columns;
+  final List<int> _walls;
+
+  @override
+  List<int> get walls {
+    if (_walls is EqualUnmodifiableListView) return _walls;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_walls);
+  }
 
   @override
   String toString() {
-    return 'Level(rows: $rows, columns: $columns)';
+    return 'Level(rows: $rows, columns: $columns, walls: $walls)';
   }
 
   @override
@@ -115,11 +143,13 @@ class _$_Level extends _Level {
         (other.runtimeType == runtimeType &&
             other is _$_Level &&
             (identical(other.rows, rows) || other.rows == rows) &&
-            (identical(other.columns, columns) || other.columns == columns));
+            (identical(other.columns, columns) || other.columns == columns) &&
+            const DeepCollectionEquality().equals(other._walls, _walls));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, rows, columns);
+  int get hashCode => Object.hash(
+      runtimeType, rows, columns, const DeepCollectionEquality().hash(_walls));
 
   @JsonKey(ignore: true)
   @override
@@ -129,14 +159,22 @@ class _$_Level extends _Level {
 }
 
 abstract class _Level extends Level {
-  const factory _Level({required final int rows, required final int columns}) =
-      _$_Level;
+  const factory _Level(
+      {required final int rows,
+      required final int columns,
+      required final List<int> walls}) = _$_Level;
+
   const _Level._() : super._();
 
   @override
   int get rows;
+
   @override
   int get columns;
+
+  @override
+  List<int> get walls;
+
   @override
   @JsonKey(ignore: true)
   _$$_LevelCopyWith<_$_Level> get copyWith =>

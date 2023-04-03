@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_snake/main.dart';
 import 'package:flutter_snake/models/block.dart';
 import 'package:flutter_snake/models/ground.dart';
 import 'package:flutter_snake/providers/food_provider.dart';
@@ -12,46 +13,37 @@ class GroundNotifier extends StateNotifier<Ground> {
   final SnakeNotifier snakeNotifier;
   final FoodNotifier foodNotifier;
   final GameOverNotifier gameOverNotifier;
+  final SnakeBodyNotifier snakeBodyNotifier;
+  final GlobalKey<NavigatorState> navigationKey;
 
   GroundNotifier(
     this.levelNotifier,
     this.snakeNotifier,
     this.foodNotifier,
     this.gameOverNotifier,
-  ) : super(
-          Ground(
-            grid: List.generate(
-              levelNotifier.state.columns * levelNotifier.state.rows,
-              (index) => const Block(
-                type: BlockType.blank,
-              ),
-            ),
-          ),
-        );
+    this.navigationKey,
+    this.snakeBodyNotifier,
+    Ground initialGround,
+  ) : super(initialGround);
 
   void update() {
+    final snakeTailBeforeMove = snakeBodyNotifier.body.first;
     final isLose = snakeNotifier.move();
 
     if (isLose) {
       gameOverNotifier.isOver = true;
-    }
-
-    final snakeBody = snakeNotifier.state.body;
-
-    setBlock(snakeBody.first, BlockType.snake);
-    setBlock(snakeBody.last, BlockType.snake);
-
-    final columns = levelNotifier.state.columns;
-    final rows = levelNotifier.state.rows;
-    for (int i = 0; i < columns * rows; i++) {
-      if (snakeBody.contains(i)) {
-        setBlock(i, BlockType.snake);
-      } else if (i == foodNotifier.food) {
-        setBlock(i, BlockType.food);
-      } else {
-        setBlock(i, BlockType.blank);
+      final context = navigationKey.currentContext;
+      if (context != null) {
+        Navigator.pushNamed(context, '/over');
       }
     }
+
+    final snakeBody = snakeBodyNotifier.body;
+
+    setBlock(snakeTailBeforeMove, BlockType.blank);
+    setBlock(snakeBody.first, BlockType.snake);
+    setBlock(snakeBody.last, BlockType.snake);
+    setBlock(foodNotifier.food, BlockType.food);
   }
 
   void setBlock(
@@ -71,11 +63,37 @@ class GroundNotifier extends StateNotifier<Ground> {
 }
 
 final groundProvider = StateNotifierProvider<GroundNotifier, Ground>((ref) {
+  final level = ref.watch(levelProvider.notifier);
+  final snake = ref.watch(snakeProvider.notifier);
+  final food = ref.watch(foodProvider.notifier);
+  final gameOver = ref.watch(gameOverProvider.notifier);
+
+  final walls = List.from(level.walls);
+  walls.sort();
+  final ground = Ground(
+    grid: List.generate(
+      level.columns * level.rows,
+      (index) {
+        if (walls.contains(index)) {
+          return const Block(
+            type: BlockType.wall,
+          );
+        }
+        return const Block(
+          type: BlockType.blank,
+        );
+      },
+    ),
+  );
+
   return GroundNotifier(
-    ref.watch(levelProvider.notifier),
-    ref.watch(snakeProvider.notifier),
-    ref.watch(foodProvider.notifier),
-    ref.watch(gameOverProvider.notifier),
+    level,
+    snake,
+    food,
+    gameOver,
+    ref.watch(navigationKeyProvider),
+    ref.watch(snakeBodyProvider.notifier),
+    ground,
   );
 });
 

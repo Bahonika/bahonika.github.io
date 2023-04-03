@@ -270,14 +270,6 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
-  flutter_hooks:
-    dependency: transitive
-    description:
-      name: flutter_hooks
-      sha256: "6a126f703b89499818d73305e4ce1e3de33b4ae1c5512e3b8eab4b986f46774c"
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.18.6"
   flutter_lints:
     dependency: "direct dev"
     description:
@@ -294,14 +286,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.3.2"
-  flutter_spinkit:
-    dependency: transitive
-    description:
-      name: flutter_spinkit
-      sha256: "77a2117c0517ff909221f3160b8eb20052ab5216107581168af574ac1f05dff8"
-      url: "https://pub.dev"
-    source: hosted
-    version: "5.1.0"
   flutter_test:
     dependency: "direct dev"
     description: flutter
@@ -352,14 +336,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.2.0"
-  hooks_riverpod:
-    dependency: transitive
-    description:
-      name: hooks_riverpod
-      sha256: "7e673817a7db4d6403a079882485affd3156d79c06209389353d0977d513f905"
-      url: "https://pub.dev"
-    source: hosted
-    version: "2.3.2"
   http:
     dependency: transitive
     description:
@@ -576,22 +552,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.3.2"
-  riverpod_navigator:
-    dependency: "direct main"
-    description:
-      name: riverpod_navigator
-      sha256: fd735955319e6ace0d26616298dea33751446d1b11265490613e23cb89bcae11
-      url: "https://pub.dev"
-    source: hosted
-    version: "1.0.10"
-  riverpod_navigator_core:
-    dependency: transitive
-    description:
-      name: riverpod_navigator_core
-      sha256: "4a10cee96a5acca6bdd3f9bcb63a38ba7438a477ea96ff74fd2a993622a3815a"
-      url: "https://pub.dev"
-    source: hosted
-    version: "1.0.10"
   shelf:
     dependency: transitive
     description:
@@ -693,14 +653,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.1"
-  tuple:
-    dependency: transitive
-    description:
-      name: tuple
-      sha256: "0ea99cd2f9352b2586583ab2ce6489d1f95a5f6de6fb9492faaf97ae2060f0aa"
-      url: "https://pub.dev"
-    source: hosted
-    version: "2.0.1"
   typed_data:
     dependency: transitive
     description:
@@ -767,4 +719,4 @@ packages:
     version: "3.1.1"
 sdks:
   dart: ">=2.19.2 <3.0.0"
-  flutter: ">=3.3.0"
+  flutter: ">=3.0.0"

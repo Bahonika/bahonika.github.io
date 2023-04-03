@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_snake/main.dart';
 import 'package:flutter_snake/models/snake.dart';
 import 'package:flutter_snake/providers/snake_provider.dart';
 
 import '../providers/is_active.dart';
-import '../providers/timer_povider.dart';
 
 class KeyboardMapper {
   Direction? fromKey(LogicalKeyboardKey key) {
@@ -47,9 +47,20 @@ class _MyKeyboardListenerState extends ConsumerState<MyKeyboardListener> {
     return RawKeyboardListener(
       onKey: (event) {
         if (event.isKeyPressed(LogicalKeyboardKey.escape)) {
-          ref.watch(isActiveProvider.notifier).toggle();
+          final context = ref.watch(navigationKeyProvider).currentContext;
+          if (context != null) {
+            if (ref.read(isActiveProvider)) {
+              Navigator.pushNamed(context, '/pause');
+              ref.watch(isActiveProvider.notifier).toggle();
+            } else if (Navigator.canPop(context)) {
+              Navigator.pop(context);
+              ref.watch(isActiveProvider.notifier).toggle();
+            }
+          }
         }
-        ref.watch(snakeProvider.notifier).keyTurn(event.logicalKey);
+        if (ref.read(isActiveProvider)) {
+          ref.watch(snakeProvider.notifier).keyTurn(event.logicalKey);
+        }
       },
       focusNode: focus,
       autofocus: true,

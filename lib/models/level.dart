@@ -9,7 +9,9 @@ class Level with _$Level {
   const factory Level({
     required int rows,
     required int columns,
+    required List<int> walls,
   }) = _Level;
 
   int get area => rows * columns;
 }
+

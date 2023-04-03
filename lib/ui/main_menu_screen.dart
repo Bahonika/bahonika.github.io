@@ -2,6 +2,8 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_snake/providers/is_active.dart';
+import 'package:flutter_snake/providers/is_game_over.dart';
 
 class MainMenuScreen extends ConsumerStatefulWidget {
   const MainMenuScreen({Key? key}) : super(key: key);
@@ -25,7 +27,11 @@ class _MainMenuScreenState extends ConsumerState<MainMenuScreen> {
               width: 400,
               height: 100,
               child: ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  ref.read(isActiveProvider.notifier).isActive = true;
+                  ref.read(gameOverProvider.notifier).isOver = false;
+                  Navigator.pushNamed(context, '/level');
+                },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.purple,
                 ),

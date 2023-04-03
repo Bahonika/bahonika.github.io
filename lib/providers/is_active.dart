@@ -1,7 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class IsActiveNotifier extends StateNotifier<bool> {
-  IsActiveNotifier() : super(true);
+  IsActiveNotifier() : super(false);
 
   void toggle() => state = !state;
 

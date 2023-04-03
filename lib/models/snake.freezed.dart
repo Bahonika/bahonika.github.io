@@ -16,7 +16,6 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$Snake {
-  List<int> get body => throw _privateConstructorUsedError;
   Direction get direction => throw _privateConstructorUsedError;
   Speed get speed => throw _privateConstructorUsedError;
 
@@ -29,7 +28,7 @@ abstract class $SnakeCopyWith<$Res> {
   factory $SnakeCopyWith(Snake value, $Res Function(Snake) then) =
       _$SnakeCopyWithImpl<$Res, Snake>;
   @useResult
-  $Res call({List<int> body, Direction direction, Speed speed});
+  $Res call({Direction direction, Speed speed});
 }
 
 /// @nodoc
@@ -45,15 +44,10 @@ class _$SnakeCopyWithImpl<$Res, $Val extends Snake>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? body = null,
     Object? direction = null,
     Object? speed = null,
   }) {
     return _then(_value.copyWith(
-      body: null == body
-          ? _value.body
-          : body // ignore: cast_nullable_to_non_nullable
-              as List<int>,
       direction: null == direction
           ? _value.direction
           : direction // ignore: cast_nullable_to_non_nullable
@@ -70,9 +64,10 @@ class _$SnakeCopyWithImpl<$Res, $Val extends Snake>
 abstract class _$$_SnakeCopyWith<$Res> implements $SnakeCopyWith<$Res> {
   factory _$$_SnakeCopyWith(_$_Snake value, $Res Function(_$_Snake) then) =
       __$$_SnakeCopyWithImpl<$Res>;
+
   @override
   @useResult
-  $Res call({List<int> body, Direction direction, Speed speed});
+  $Res call({Direction direction, Speed speed});
 }
 
 /// @nodoc
@@ -84,15 +79,10 @@ class __$$_SnakeCopyWithImpl<$Res> extends _$SnakeCopyWithImpl<$Res, _$_Snake>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? body = null,
     Object? direction = null,
     Object? speed = null,
   }) {
     return _then(_$_Snake(
-      body: null == body
-          ? _value._body
-          : body // ignore: cast_nullable_to_non_nullable
-              as List<int>,
       direction: null == direction
           ? _value.direction
           : direction // ignore: cast_nullable_to_non_nullable
@@ -108,19 +98,7 @@ class __$$_SnakeCopyWithImpl<$Res> extends _$SnakeCopyWithImpl<$Res, _$_Snake>
 /// @nodoc
 
 class _$_Snake implements _Snake {
-  const _$_Snake(
-      {required final List<int> body,
-      required this.direction,
-      required this.speed})
-      : _body = body;
-
-  final List<int> _body;
-  @override
-  List<int> get body {
-    if (_body is EqualUnmodifiableListView) return _body;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_body);
-  }
+  const _$_Snake({required this.direction, required this.speed});
 
   @override
   final Direction direction;
@@ -129,7 +107,7 @@ class _$_Snake implements _Snake {
 
   @override
   String toString() {
-    return 'Snake(body: $body, direction: $direction, speed: $speed)';
+    return 'Snake(direction: $direction, speed: $speed)';
   }
 
   @override
@@ -137,15 +115,13 @@ class _$_Snake implements _Snake {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_Snake &&
-            const DeepCollectionEquality().equals(other._body, _body) &&
             (identical(other.direction, direction) ||
                 other.direction == direction) &&
             (identical(other.speed, speed) || other.speed == speed));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType,
-      const DeepCollectionEquality().hash(_body), direction, speed);
+  int get hashCode => Object.hash(runtimeType, direction, speed);
 
   @JsonKey(ignore: true)
   @override
@@ -156,12 +132,9 @@ class _$_Snake implements _Snake {
 
 abstract class _Snake implements Snake {
   const factory _Snake(
-      {required final List<int> body,
-      required final Direction direction,
+      {required final Direction direction,
       required final Speed speed}) = _$_Snake;
 
-  @override
-  List<int> get body;
   @override
   Direction get direction;
   @override

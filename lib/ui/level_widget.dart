@@ -2,7 +2,9 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_snake/main.dart';
 import 'package:flutter_snake/ui/pause_screen.dart';
+import 'package:flutter_snake/utils/keyboard.dart';
 
 import '../models/snake.dart';
 import '../providers/ground_provider.dart';
@@ -25,7 +27,11 @@ class _LevelWidgetState extends ConsumerState<LevelWidget> {
   Duration duration = const Duration(milliseconds: 100);
 
   void openHelp() {
-    ref.read(isActiveProvider.notifier).isActive = false;
+    final context = ref.watch(navigationKeyProvider).currentContext;
+    if (context != null) {
+      Navigator.pushNamed(context, '/pause');
+      ref.read(isActiveProvider.notifier).isActive = false;
+    }
   }
 
   @override
@@ -138,7 +144,6 @@ class ControllerWidget extends ConsumerWidget {
           },
         ),
       ),
-    )
-    ;
+    );
   }
 }

@@ -1,3 +1,4 @@
+import 'package:flutter_snake/models/snake_body.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'snake.freezed.dart';
@@ -18,7 +19,6 @@ enum Speed {
 @freezed
 class Snake with _$Snake {
   const factory Snake({
-    required List<int> body,
     required Direction direction,
     required Speed speed,
   }) = _Snake;
