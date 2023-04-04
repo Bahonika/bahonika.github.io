@@ -8,8 +8,9 @@ class DifficultNotifier extends StateNotifier<Duration> {
   Duration get difficult => state;
 }
 
-final difficultProvider = StateNotifierProvider<DifficultNotifier, Duration>(
-  (ref) {
+final difficultProvider =
+StateNotifierProvider<DifficultNotifier, Duration>(
+      (ref) {
     return DifficultNotifier();
   },
 );

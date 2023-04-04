@@ -47,7 +47,9 @@ class _MyKeyboardListenerState extends ConsumerState<MyKeyboardListener> {
     return RawKeyboardListener(
       onKey: (event) {
         if (event.isKeyPressed(LogicalKeyboardKey.escape)) {
-          final context = ref.watch(navigationKeyProvider).currentContext;
+          final context = ref
+              .read(navigationKeyProvider)
+              .currentContext;
           if (context != null) {
             if (ref.watch(isActiveProvider)) {
               Navigator.pushNamed(context, '/pause');

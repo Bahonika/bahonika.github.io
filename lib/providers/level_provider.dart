@@ -20,8 +20,8 @@ class LevelNotifier extends StateNotifier<Level> {
   int get columns => state.columns;
 }
 
-final levelProvider =
-StateNotifierProvider<LevelNotifier, Level>((ref) => LevelNotifier());
+final levelProvider = StateNotifierProvider<LevelNotifier, Level>(
+        (ref) => LevelNotifier());
 
 List<Level> levels = [
   const Level(columns: 20, rows: 20, walls: []),

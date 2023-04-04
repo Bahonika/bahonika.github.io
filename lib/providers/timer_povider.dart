@@ -40,8 +40,6 @@ class TimerNotifier extends StateNotifier<Timer> {
             },
           ),
         );
-
-  set isTurnedAlready(Timer value) => state = value;
 }
 
 final timerProvider =

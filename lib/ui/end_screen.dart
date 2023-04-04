@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_snake/providers/is_game_over.dart';
 
 class EndScreen extends ConsumerStatefulWidget {
   const EndScreen({Key? key}) : super(key: key);
@@ -25,9 +26,12 @@ class _EndScreenState extends ConsumerState<EndScreen> {
             ),
             ElevatedButton(
               onPressed: () {
+                ref
+                    .watch(gameOverProvider.notifier)
+                    .isOver = false;
                 Navigator.popUntil(
                   context,
-                  ModalRoute.withName('mainMenu'),
+                  ModalRoute.withName('/mainMenu'),
                 );
               },
               child: const Text(

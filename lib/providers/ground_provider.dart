@@ -27,24 +27,26 @@ class GroundNotifier extends StateNotifier<Ground> {
   ) : super(initialGround);
 
   void update() {
-    final snakeTailBeforeMove = snakeBodyNotifier.body.first;
-    final isLose = snakeNotifier.move();
+    if (snakeBodyNotifier.mounted) {
+      final snakeTailBeforeMove = snakeBodyNotifier.body.first;
+      final isLose = snakeNotifier.move();
 
-    if (isLose) {
-      gameOverNotifier.isOver = true;
-      final context = navigationKey.currentContext;
-      if (context != null) {
-        Navigator.pushNamed(context, '/over');
+      if (isLose) {
+        gameOverNotifier.isOver = true;
+        final context = navigationKey.currentContext;
+        if (context != null) {
+          Navigator.pushNamed(context, '/over');
+        }
+        return;
       }
-      return;
+
+      final snakeBody = snakeBodyNotifier.body;
+
+      setBlock(snakeTailBeforeMove, BlockType.blank);
+      setBlock(snakeBody.first, BlockType.snake);
+      setBlock(snakeBody.last, BlockType.snake);
+      setBlock(foodNotifier.food, BlockType.food);
     }
-
-    final snakeBody = snakeBodyNotifier.body;
-
-    setBlock(snakeTailBeforeMove, BlockType.blank);
-    setBlock(snakeBody.first, BlockType.snake);
-    setBlock(snakeBody.last, BlockType.snake);
-    setBlock(foodNotifier.food, BlockType.food);
   }
 
   void setBlock(

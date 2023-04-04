@@ -30,8 +30,9 @@ class _MainMenuScreenState extends ConsumerState<MainMenuScreen> {
               height: 100,
               child: ElevatedButton(
                 onPressed: () {
-                  ref.watch(isActiveProvider.notifier).isActive = true;
-                  ref.watch(gameOverProvider.notifier).isOver = false;
+                  ref
+                      .read(isActiveProvider.notifier)
+                      .isActive = true;
                   Navigator.pushNamed(context, '/level');
                 },
                 style: ElevatedButton.styleFrom(

@@ -15,7 +15,7 @@ import 'level_provider.dart';
 class SnakeBodyNotifier extends StateNotifier<SnakeBody> {
   final LevelNotifier levelNotifier;
 
-  SnakeBodyNotifier(this.levelNotifier) : super(const SnakeBody(body: [])) {
+  SnakeBodyNotifier(this.levelNotifier) : super(const SnakeBody(body: [25])) {
     init();
   }
 
