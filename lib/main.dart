@@ -30,7 +30,7 @@ class _MyAppState extends ConsumerState<MyApp> {
       child: MaterialApp(
         title: 'Snake',
         routes: {
-          '/mainMenu': (context) => const MainMenuScreen(),
+          'mainMenu': (context) => const MainMenuScreen(),
           '/level': (context) => const LevelWidget(),
           '/pause': (context) => const PauseScreen(),
           '/over': (context) => const EndScreen(),

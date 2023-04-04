@@ -1,10 +1,7 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_snake/providers/difficult_provider.dart';
 import 'package:flutter_snake/providers/is_active.dart';
-import 'package:flutter_snake/providers/is_game_over.dart';
 import 'package:flutter_snake/providers/level_provider.dart';
 
 class MainMenuScreen extends ConsumerStatefulWidget {
@@ -267,7 +264,7 @@ class _MainMenuScreenState extends ConsumerState<MainMenuScreen> {
               width: 400,
               height: 100,
               child: ElevatedButton(
-                onPressed: () => exit(0),
+                onPressed: () {},
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.purple,
                 ),
